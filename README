@@ -1,0 +1,1 @@
+A simple working example of shadow mapping on iOS, using a FBO with a depth texture attachment.

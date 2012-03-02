@@ -1,0 +1,358 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		797258911500DE4F0069E259 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 797258901500DE4F0069E259 /* UIKit.framework */; };
+		797258931500DE4F0069E259 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 797258921500DE4F0069E259 /* Foundation.framework */; };
+		797258951500DE4F0069E259 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 797258941500DE4F0069E259 /* CoreGraphics.framework */; };
+		797258971500DE4F0069E259 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 797258961500DE4F0069E259 /* GLKit.framework */; };
+		797258991500DE4F0069E259 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 797258981500DE4F0069E259 /* OpenGLES.framework */; };
+		7972589F1500DE4F0069E259 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7972589D1500DE4F0069E259 /* InfoPlist.strings */; };
+		797258A11500DE4F0069E259 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 797258A01500DE4F0069E259 /* main.m */; };
+		797258A51500DE4F0069E259 /* BDPAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 797258A41500DE4F0069E259 /* BDPAppDelegate.m */; };
+		797258BE1500DF6A0069E259 /* GLViewObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 797258BD1500DF6A0069E259 /* GLViewObject.m */; };
+		797258C11500DF7F0069E259 /* BDPCubeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 797258C01500DF7F0069E259 /* BDPCubeView.m */; };
+		797258CE1500DFEB0069E259 /* GLShader.m in Sources */ = {isa = PBXBuildFile; fileRef = 797258CD1500DFEB0069E259 /* GLShader.m */; };
+		797258D11500E0FA0069E259 /* BDPShadowShader.m in Sources */ = {isa = PBXBuildFile; fileRef = 797258D01500E0FA0069E259 /* BDPShadowShader.m */; };
+		797258D41500E6610069E259 /* BDPViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 797258D31500E6610069E259 /* BDPViewController.m */; };
+		797258D71500EE950069E259 /* BDPWallView.m in Sources */ = {isa = PBXBuildFile; fileRef = 797258D61500EE950069E259 /* BDPWallView.m */; };
+		79C858761500EF620040C087 /* ShadowShader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 79C858721500EF620040C087 /* ShadowShader.fsh */; };
+		79C858771500EF620040C087 /* ShadowShader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 79C858731500EF620040C087 /* ShadowShader.vsh */; };
+		79C8587A1500F4FB0040C087 /* BDPShadowBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 79C858791500F4FB0040C087 /* BDPShadowBuffer.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		7972588C1500DE4F0069E259 /* ShadowMapping.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShadowMapping.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		797258901500DE4F0069E259 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		797258921500DE4F0069E259 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		797258941500DE4F0069E259 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		797258961500DE4F0069E259 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		797258981500DE4F0069E259 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		7972589C1500DE4F0069E259 /* ShadowMapping-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ShadowMapping-Info.plist"; sourceTree = "<group>"; };
+		7972589E1500DE4F0069E259 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		797258A01500DE4F0069E259 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		797258A21500DE4F0069E259 /* ShadowMapping-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ShadowMapping-Prefix.pch"; sourceTree = "<group>"; };
+		797258A31500DE4F0069E259 /* BDPAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BDPAppDelegate.h; sourceTree = "<group>"; };
+		797258A41500DE4F0069E259 /* BDPAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BDPAppDelegate.m; sourceTree = "<group>"; };
+		797258BC1500DF6A0069E259 /* GLViewObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLViewObject.h; sourceTree = "<group>"; };
+		797258BD1500DF6A0069E259 /* GLViewObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLViewObject.m; sourceTree = "<group>"; };
+		797258BF1500DF7F0069E259 /* BDPCubeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDPCubeView.h; sourceTree = "<group>"; };
+		797258C01500DF7F0069E259 /* BDPCubeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDPCubeView.m; sourceTree = "<group>"; };
+		797258CC1500DFEB0069E259 /* GLShader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLShader.h; sourceTree = "<group>"; };
+		797258CD1500DFEB0069E259 /* GLShader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLShader.m; sourceTree = "<group>"; };
+		797258CF1500E0FA0069E259 /* BDPShadowShader.h */ = {isa = PBXFileReference; fileEncoding = 4; path = BDPShadowShader.h; sourceTree = "<group>"; };
+		797258D01500E0FA0069E259 /* BDPShadowShader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDPShadowShader.m; sourceTree = "<group>"; };
+		797258D21500E6610069E259 /* BDPViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDPViewController.h; sourceTree = "<group>"; };
+		797258D31500E6610069E259 /* BDPViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDPViewController.m; sourceTree = "<group>"; };
+		797258D51500EE950069E259 /* BDPWallView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDPWallView.h; sourceTree = "<group>"; };
+		797258D61500EE950069E259 /* BDPWallView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDPWallView.m; sourceTree = "<group>"; };
+		79C858721500EF620040C087 /* ShadowShader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = ShadowShader.fsh; path = Shaders/ShadowShader.fsh; sourceTree = "<group>"; };
+		79C858731500EF620040C087 /* ShadowShader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = ShadowShader.vsh; path = Shaders/ShadowShader.vsh; sourceTree = "<group>"; };
+		79C858781500F4FB0040C087 /* BDPShadowBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDPShadowBuffer.h; sourceTree = "<group>"; };
+		79C858791500F4FB0040C087 /* BDPShadowBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDPShadowBuffer.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		797258891500DE4F0069E259 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				797258911500DE4F0069E259 /* UIKit.framework in Frameworks */,
+				797258931500DE4F0069E259 /* Foundation.framework in Frameworks */,
+				797258951500DE4F0069E259 /* CoreGraphics.framework in Frameworks */,
+				797258971500DE4F0069E259 /* GLKit.framework in Frameworks */,
+				797258991500DE4F0069E259 /* OpenGLES.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		797258811500DE4F0069E259 = {
+			isa = PBXGroup;
+			children = (
+				7972589A1500DE4F0069E259 /* ShadowMapping */,
+				7972588F1500DE4F0069E259 /* Frameworks */,
+				7972588D1500DE4F0069E259 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		7972588D1500DE4F0069E259 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7972588C1500DE4F0069E259 /* ShadowMapping.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		7972588F1500DE4F0069E259 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				797258901500DE4F0069E259 /* UIKit.framework */,
+				797258921500DE4F0069E259 /* Foundation.framework */,
+				797258941500DE4F0069E259 /* CoreGraphics.framework */,
+				797258961500DE4F0069E259 /* GLKit.framework */,
+				797258981500DE4F0069E259 /* OpenGLES.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7972589A1500DE4F0069E259 /* ShadowMapping */ = {
+			isa = PBXGroup;
+			children = (
+				797258B81500DE6C0069E259 /* Model */,
+				797258B91500DE760069E259 /* View */,
+				797258BA1500DE7E0069E259 /* Controller */,
+				797258BB1500DE920069E259 /* Shaders */,
+				797258A31500DE4F0069E259 /* BDPAppDelegate.h */,
+				797258A41500DE4F0069E259 /* BDPAppDelegate.m */,
+				7972589B1500DE4F0069E259 /* Supporting Files */,
+			);
+			path = ShadowMapping;
+			sourceTree = "<group>";
+		};
+		7972589B1500DE4F0069E259 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				7972589C1500DE4F0069E259 /* ShadowMapping-Info.plist */,
+				7972589D1500DE4F0069E259 /* InfoPlist.strings */,
+				797258A01500DE4F0069E259 /* main.m */,
+				797258A21500DE4F0069E259 /* ShadowMapping-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		797258B81500DE6C0069E259 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				797258CC1500DFEB0069E259 /* GLShader.h */,
+				797258CD1500DFEB0069E259 /* GLShader.m */,
+				797258CF1500E0FA0069E259 /* BDPShadowShader.h */,
+				797258D01500E0FA0069E259 /* BDPShadowShader.m */,
+				79C858781500F4FB0040C087 /* BDPShadowBuffer.h */,
+				79C858791500F4FB0040C087 /* BDPShadowBuffer.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		797258B91500DE760069E259 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				797258BC1500DF6A0069E259 /* GLViewObject.h */,
+				797258BD1500DF6A0069E259 /* GLViewObject.m */,
+				797258BF1500DF7F0069E259 /* BDPCubeView.h */,
+				797258C01500DF7F0069E259 /* BDPCubeView.m */,
+				797258D51500EE950069E259 /* BDPWallView.h */,
+				797258D61500EE950069E259 /* BDPWallView.m */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		797258BA1500DE7E0069E259 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				797258D21500E6610069E259 /* BDPViewController.h */,
+				797258D31500E6610069E259 /* BDPViewController.m */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		797258BB1500DE920069E259 /* Shaders */ = {
+			isa = PBXGroup;
+			children = (
+				79C858721500EF620040C087 /* ShadowShader.fsh */,
+				79C858731500EF620040C087 /* ShadowShader.vsh */,
+			);
+			name = Shaders;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		7972588B1500DE4F0069E259 /* ShadowMapping */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 797258B51500DE4F0069E259 /* Build configuration list for PBXNativeTarget "ShadowMapping" */;
+			buildPhases = (
+				797258881500DE4F0069E259 /* Sources */,
+				797258891500DE4F0069E259 /* Frameworks */,
+				7972588A1500DE4F0069E259 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ShadowMapping;
+			productName = ShadowMapping;
+			productReference = 7972588C1500DE4F0069E259 /* ShadowMapping.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		797258831500DE4F0069E259 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+			};
+			buildConfigurationList = 797258861500DE4F0069E259 /* Build configuration list for PBXProject "ShadowMapping" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 797258811500DE4F0069E259;
+			productRefGroup = 7972588D1500DE4F0069E259 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				7972588B1500DE4F0069E259 /* ShadowMapping */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		7972588A1500DE4F0069E259 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7972589F1500DE4F0069E259 /* InfoPlist.strings in Resources */,
+				79C858761500EF620040C087 /* ShadowShader.fsh in Resources */,
+				79C858771500EF620040C087 /* ShadowShader.vsh in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		797258881500DE4F0069E259 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				797258A11500DE4F0069E259 /* main.m in Sources */,
+				797258A51500DE4F0069E259 /* BDPAppDelegate.m in Sources */,
+				797258BE1500DF6A0069E259 /* GLViewObject.m in Sources */,
+				797258C11500DF7F0069E259 /* BDPCubeView.m in Sources */,
+				797258CE1500DFEB0069E259 /* GLShader.m in Sources */,
+				797258D11500E0FA0069E259 /* BDPShadowShader.m in Sources */,
+				797258D41500E6610069E259 /* BDPViewController.m in Sources */,
+				797258D71500EE950069E259 /* BDPWallView.m in Sources */,
+				79C8587A1500F4FB0040C087 /* BDPShadowBuffer.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		7972589D1500DE4F0069E259 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7972589E1500DE4F0069E259 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		797258B31500DE4F0069E259 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		797258B41500DE4F0069E259 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		797258B61500DE4F0069E259 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ShadowMapping/ShadowMapping-Prefix.pch";
+				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
+				INFOPLIST_FILE = "ShadowMapping/ShadowMapping-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		797258B71500DE4F0069E259 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ShadowMapping/ShadowMapping-Prefix.pch";
+				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
+				INFOPLIST_FILE = "ShadowMapping/ShadowMapping-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		797258861500DE4F0069E259 /* Build configuration list for PBXProject "ShadowMapping" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				797258B31500DE4F0069E259 /* Debug */,
+				797258B41500DE4F0069E259 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		797258B51500DE4F0069E259 /* Build configuration list for PBXNativeTarget "ShadowMapping" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				797258B61500DE4F0069E259 /* Debug */,
+				797258B71500DE4F0069E259 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 797258831500DE4F0069E259 /* Project object */;
+}
