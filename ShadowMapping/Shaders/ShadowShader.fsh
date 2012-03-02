@@ -12,12 +12,16 @@ uniform sampler2D shadowMap;
 
 void main()
 {
-    // the threshold to compare to the vertex depth
+    // calculate the z position of this fragment in screen space
     // we subtract a small magic constant to fix float error distortion
-    highp float unobstructedDepth = (shadowCoord.z / shadowCoord.w) - 0.03;
+    highp float projectedDepth = (shadowCoord.z / shadowCoord.w) - 0.03;
+    
+    // read the depth in the depth buffer texture
     highp float depth = texture2DProj(shadowMap, shadowCoord).r;
     
-    lowp float shadowFactor = depth >= unobstructedDepth ? 1.0 : 0.6;
+    // if the depth buffer texture depth is less than the projected depth of this fragment
+    // then the fragment is obscured by another object and is in shadow
+    lowp float shadowFactor = depth < projectedDepth ? 0.6 : 1.0;
     
     gl_FragColor = colorVarying * shadowFactor;
 }
