@@ -8,6 +8,7 @@
 #import "BDPViewController.h"
 #import "BDPCubeView.h"
 #import "BDPWallView.h"
+#import "BDPLightShader.h"
 #import "BDPShadowBuffer.h"
 #import "BDPShadowShader.h"
 
@@ -41,7 +42,6 @@ static const float kCubeRotationRadius = 1.0;
 static const float kCubeRotationSpeed = 1.0;
 static const float kWallZ = -50.0;
 static const float kWallSize = 40.0;
-//static const GLKVector3 kLightPosition = { -1.0, 3.0, 1.0 };
 static const GLKVector3 kLightPosition = { -0.5, 1.0, 0.0 };
 static const GLKVector3 kLightLookAt = { 0.0, 0.0, -15.0 };
 
@@ -77,19 +77,24 @@ static const GLKVector3 kLightLookAt = { 0.0, 0.0, -15.0 };
     self.biasMatrix = GLKMatrix4Make(0.5, 0, 0, 0, 0, 0.5, 0, 0, 0, 0, 0.5, 0, 0.5, 0.5, 0.5, 1.0);
     
     // create the view objects
-    GLShader *shader = [[BDPShadowShader alloc] init];
+    BDPLightShader *lightShader = [[BDPLightShader alloc] init];
+    BDPShadowShader *shadowShader = [[BDPShadowShader alloc] init];
+    
     GLKVector3 lightDirection = GLKVector3Normalize(GLKVector3Subtract(kLightLookAt, kLightPosition));
     self.cubeView = [[BDPCubeView alloc] init];
     self.cubeView.lightDirection = lightDirection;
-    self.cubeView.shader = shader;
+    self.cubeView.lightShader = lightShader;
+    self.cubeView.shadowShader = shadowShader;
     self.cubeView.shadowTexture = self.shadowBuffer.depthTexture;
+    
     self.wallView = [[BDPWallView alloc] init];
     self.wallView.lightDirection = lightDirection;
-    self.wallView.shader = shader;
+    self.wallView.lightShader = lightShader;
+    self.wallView.shadowShader = shadowShader;
     self.wallView.shadowTexture = self.shadowBuffer.depthTexture;
     
     // the wall is static, set its mv matrix now
-    self.wallView.modelViewMatrix = GLKMatrix4Multiply(GLKMatrix4MakeTranslation(0, 0, kWallZ), GLKMatrix4MakeScale(kWallSize, kWallSize, 1.0));
+    self.wallView.modelMatrix = GLKMatrix4Multiply(GLKMatrix4MakeTranslation(0, 0, kWallZ), GLKMatrix4MakeScale(kWallSize, kWallSize, 1.0));
 }
 
 - (void)setupGL
@@ -142,7 +147,7 @@ static const GLKVector3 kLightLookAt = { 0.0, 0.0, -15.0 };
     
     // shift the cube into the distance
     worldMatrix = GLKMatrix4Multiply(GLKMatrix4MakeTranslation(0, 0, kCubeRotationZ), worldMatrix);
-    self.cubeView.modelViewMatrix = worldMatrix;
+    self.cubeView.modelMatrix = worldMatrix;
 }
 
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect
@@ -168,8 +173,8 @@ static const GLKVector3 kLightLookAt = { 0.0, 0.0, -15.0 };
     // render only back faces, this avoids self shadowing
     glCullFace(GL_FRONT);
     
-    [self.wallView renderWithProjectionMatrix:shadowMatrix textureMatrix:GLKMatrix4Identity];
-    [self.cubeView renderWithProjectionMatrix:shadowMatrix textureMatrix:GLKMatrix4Identity];
+    // we only draw the shadow casting objects as fast as possible
+    [self.cubeView renderWithLightMatrix:shadowMatrix];
     
     // switch back to the main render buffer
     // this will also restore the viewport

@@ -8,15 +8,15 @@
 #import "GLShader.h"
 
 typedef enum {
-    BDPPositionAttribute,
-    BDPNormalAttribute,
-    BDPColourAttribute
+    BDPShadowPositionAttribute,
+    BDPShadowNormalAttribute,
+    BDPShadowColourAttribute
 } BDPShadowShaderAttributes;
 
 typedef enum {
-    BDPMVPMatrixUniform,
-    BDPNormalMatrixUniform,
-    BDPLightDirectionUniform,
+    BDPShadowMVPMatrixUniform,
+    BDPShadowNormalMatrixUniform,
+    BDPShadowLightDirectionUniform,
     BDPShadowMatrixUniform,
     BDPShadowSamplerUniform
 } BDPShadowShaderUniforms;

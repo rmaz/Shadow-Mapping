@@ -6,16 +6,18 @@
 //
 
 #import <GLKit/GLKit.h>
-#import "GLShader.h"
+#import "BDPLightShader.h"
+#import "BDPShadowShader.h"
 
 @interface GLViewObject : NSObject
 
-@property (nonatomic, strong) GLShader *shader;
-@property (nonatomic, assign) GLKMatrix4 modelViewMatrix;
+@property (nonatomic, strong) BDPLightShader *lightShader;
+@property (nonatomic, strong) BDPShadowShader *shadowShader;
+@property (nonatomic, assign) GLKMatrix4 modelMatrix;
 @property (nonatomic, assign) GLKVector3 lightDirection;
 @property (nonatomic, assign) GLuint shadowTexture;
 
-- (void)update:(NSTimeInterval)dt;
+- (void)renderWithLightMatrix:(GLKMatrix4)projectionMatrix;
 - (void)renderWithProjectionMatrix:(GLKMatrix4)projectionMatrix textureMatrix:(GLKMatrix4)textureMatrix;
 
 @end

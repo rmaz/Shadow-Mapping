@@ -24,6 +24,9 @@
 		79C858761500EF620040C087 /* ShadowShader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 79C858721500EF620040C087 /* ShadowShader.fsh */; };
 		79C858771500EF620040C087 /* ShadowShader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 79C858731500EF620040C087 /* ShadowShader.vsh */; };
 		79C8587A1500F4FB0040C087 /* BDPShadowBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 79C858791500F4FB0040C087 /* BDPShadowBuffer.m */; };
+		A7AED10E15025AF50088CAC9 /* LightShader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = A7AED10C15025AF50088CAC9 /* LightShader.fsh */; };
+		A7AED10F15025AF50088CAC9 /* LightShader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = A7AED10D15025AF50088CAC9 /* LightShader.vsh */; };
+		A7AED11315025B9C0088CAC9 /* BDPLightShader.m in Sources */ = {isa = PBXBuildFile; fileRef = A7AED11215025B9C0088CAC9 /* BDPLightShader.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,7 +48,7 @@
 		797258C01500DF7F0069E259 /* BDPCubeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDPCubeView.m; sourceTree = "<group>"; };
 		797258CC1500DFEB0069E259 /* GLShader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLShader.h; sourceTree = "<group>"; };
 		797258CD1500DFEB0069E259 /* GLShader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLShader.m; sourceTree = "<group>"; };
-		797258CF1500E0FA0069E259 /* BDPShadowShader.h */ = {isa = PBXFileReference; fileEncoding = 4; path = BDPShadowShader.h; sourceTree = "<group>"; };
+		797258CF1500E0FA0069E259 /* BDPShadowShader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDPShadowShader.h; sourceTree = "<group>"; };
 		797258D01500E0FA0069E259 /* BDPShadowShader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDPShadowShader.m; sourceTree = "<group>"; };
 		797258D21500E6610069E259 /* BDPViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDPViewController.h; sourceTree = "<group>"; };
 		797258D31500E6610069E259 /* BDPViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDPViewController.m; sourceTree = "<group>"; };
@@ -55,6 +58,10 @@
 		79C858731500EF620040C087 /* ShadowShader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = ShadowShader.vsh; path = Shaders/ShadowShader.vsh; sourceTree = "<group>"; };
 		79C858781500F4FB0040C087 /* BDPShadowBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDPShadowBuffer.h; sourceTree = "<group>"; };
 		79C858791500F4FB0040C087 /* BDPShadowBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDPShadowBuffer.m; sourceTree = "<group>"; };
+		A7AED10C15025AF50088CAC9 /* LightShader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = LightShader.fsh; path = Shaders/LightShader.fsh; sourceTree = "<group>"; };
+		A7AED10D15025AF50088CAC9 /* LightShader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = LightShader.vsh; path = Shaders/LightShader.vsh; sourceTree = "<group>"; };
+		A7AED11115025B9C0088CAC9 /* BDPLightShader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDPLightShader.h; sourceTree = "<group>"; };
+		A7AED11215025B9C0088CAC9 /* BDPLightShader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDPLightShader.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,6 +139,8 @@
 			children = (
 				797258CC1500DFEB0069E259 /* GLShader.h */,
 				797258CD1500DFEB0069E259 /* GLShader.m */,
+				A7AED11115025B9C0088CAC9 /* BDPLightShader.h */,
+				A7AED11215025B9C0088CAC9 /* BDPLightShader.m */,
 				797258CF1500E0FA0069E259 /* BDPShadowShader.h */,
 				797258D01500E0FA0069E259 /* BDPShadowShader.m */,
 				79C858781500F4FB0040C087 /* BDPShadowBuffer.h */,
@@ -165,6 +174,8 @@
 		797258BB1500DE920069E259 /* Shaders */ = {
 			isa = PBXGroup;
 			children = (
+				A7AED10C15025AF50088CAC9 /* LightShader.fsh */,
+				A7AED10D15025AF50088CAC9 /* LightShader.vsh */,
 				79C858721500EF620040C087 /* ShadowShader.fsh */,
 				79C858731500EF620040C087 /* ShadowShader.vsh */,
 			);
@@ -222,6 +233,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				7972589F1500DE4F0069E259 /* InfoPlist.strings in Resources */,
+				A7AED10E15025AF50088CAC9 /* LightShader.fsh in Resources */,
+				A7AED10F15025AF50088CAC9 /* LightShader.vsh in Resources */,
 				79C858761500EF620040C087 /* ShadowShader.fsh in Resources */,
 				79C858771500EF620040C087 /* ShadowShader.vsh in Resources */,
 			);
@@ -243,6 +256,7 @@
 				797258D41500E6610069E259 /* BDPViewController.m in Sources */,
 				797258D71500EE950069E259 /* BDPWallView.m in Sources */,
 				79C8587A1500F4FB0040C087 /* BDPShadowBuffer.m in Sources */,
+				A7AED11315025B9C0088CAC9 /* BDPLightShader.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

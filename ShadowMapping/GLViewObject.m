@@ -9,8 +9,9 @@
 
 @implementation GLViewObject
 
-@synthesize shader = _shader;
-@synthesize modelViewMatrix = _modelMatrix;
+@synthesize lightShader = _lightShader;
+@synthesize shadowShader = _shadowShader;
+@synthesize modelMatrix = _modelMatrix;
 @synthesize lightDirection = _lightDirection;
 @synthesize shadowTexture = _shadowTexture;
 
@@ -20,14 +21,14 @@
 {
     self = [super init];
     if (self != nil) {
-        self.modelViewMatrix = GLKMatrix4Identity;
+        self.modelMatrix = GLKMatrix4Identity;
     }
     return self;
 }
 
 #pragma mark - Public Methods
 
-- (void)update:(NSTimeInterval)dt
+- (void)renderWithLightMatrix:(GLKMatrix4)projectionMatrix
 {
     
 }

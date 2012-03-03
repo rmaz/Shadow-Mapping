@@ -21,46 +21,36 @@ static const GLfloat VertexData[] = {
      0.5,  0.5, 0.0,    0.0, 0.0, 1.0,  0.4, 0.4, 0.4
 };
 
-#pragma mark - Init & Dealloc
-
-- (id)init
-{
-    self = [super init];
-    if (self != nil) {
-    }
-    return self;
-}
-
 #pragma mark - Update & Render
 
 - (void)renderWithProjectionMatrix:(GLKMatrix4)projectionMatrix textureMatrix:(GLKMatrix4)textureMatrix
 {
     // set the correct shader
-    BDPShadowShader *shader = (BDPShadowShader *)self.shader;
+    BDPShadowShader *shader = self.shadowShader;
     glUseProgram(shader.program);
     
     // enable the vertex attributes
     GLsizei stride = 9 * sizeof(GLfloat);
-    glEnableVertexAttribArray(BDPPositionAttribute);
-    glVertexAttribPointer(BDPPositionAttribute, 3, GL_FLOAT, GL_FALSE, stride, VertexData);
+    glEnableVertexAttribArray(BDPShadowPositionAttribute);
+    glVertexAttribPointer(BDPShadowPositionAttribute, 3, GL_FLOAT, GL_FALSE, stride, VertexData);
     
-    glEnableVertexAttribArray(BDPNormalAttribute);
-    glVertexAttribPointer(BDPNormalAttribute, 3, GL_FLOAT, GL_FALSE, stride, VertexData + 3);
+    glEnableVertexAttribArray(BDPShadowNormalAttribute);
+    glVertexAttribPointer(BDPShadowNormalAttribute, 3, GL_FLOAT, GL_FALSE, stride, VertexData + 3);
     
-    glEnableVertexAttribArray(BDPColourAttribute);
-    glVertexAttribPointer(BDPColourAttribute, 3, GL_FLOAT, GL_FALSE, stride, VertexData + 6);
+    glEnableVertexAttribArray(BDPShadowColourAttribute);
+    glVertexAttribPointer(BDPShadowColourAttribute, 3, GL_FLOAT, GL_FALSE, stride, VertexData + 6);
     
     // set the uniforms
-    GLKMatrix4 mvpMatrix = GLKMatrix4Multiply(projectionMatrix, self.modelViewMatrix);
-    glUniformMatrix4fv(shader.uniforms[BDPMVPMatrixUniform], 1, GL_FALSE, mvpMatrix.m);
+    GLKMatrix4 mvpMatrix = GLKMatrix4Multiply(projectionMatrix, self.modelMatrix);
+    glUniformMatrix4fv(shader.uniforms[BDPShadowMVPMatrixUniform], 1, GL_FALSE, mvpMatrix.m);
     
-    GLKMatrix4 mvsMatrix = GLKMatrix4Multiply(textureMatrix, self.modelViewMatrix);
+    GLKMatrix4 mvsMatrix = GLKMatrix4Multiply(textureMatrix, self.modelMatrix);
     glUniformMatrix4fv(shader.uniforms[BDPShadowMatrixUniform], 1, GL_FALSE, mvsMatrix.m);
     
-    GLKMatrix3 normalMatrix = GLKMatrix3InvertAndTranspose(GLKMatrix4GetMatrix3(self.modelViewMatrix), NULL);
-    glUniformMatrix3fv(shader.uniforms[BDPNormalMatrixUniform], 1, GL_FALSE, normalMatrix.m);
+    GLKMatrix3 normalMatrix = GLKMatrix3InvertAndTranspose(GLKMatrix4GetMatrix3(self.modelMatrix), NULL);
+    glUniformMatrix3fv(shader.uniforms[BDPShadowNormalMatrixUniform], 1, GL_FALSE, normalMatrix.m);
     
-    glUniform3fv(shader.uniforms[BDPLightDirectionUniform], 1, self.lightDirection.v);
+    glUniform3fv(shader.uniforms[BDPShadowLightDirectionUniform], 1, self.lightDirection.v);
 
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, self.shadowTexture);
@@ -71,9 +61,9 @@ static const GLfloat VertexData[] = {
     
     // cleanup
     glBindTexture(GL_TEXTURE_2D, 0);
-    glDisableVertexAttribArray(BDPPositionAttribute);
-    glDisableVertexAttribArray(BDPNormalAttribute);
-    glDisableVertexAttribArray(BDPColourAttribute);
+    glDisableVertexAttribArray(BDPShadowPositionAttribute);
+    glDisableVertexAttribArray(BDPShadowNormalAttribute);
+    glDisableVertexAttribArray(BDPShadowColourAttribute);
     glUseProgram(0);
 }
 
