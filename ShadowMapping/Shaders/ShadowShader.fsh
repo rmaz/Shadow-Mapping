@@ -12,9 +12,9 @@ varying highp vec4 shadowCoord;
 
 uniform sampler2DShadow shadowMap;
 
-const lowp  float kShadowAmount = 0.5;
+const lowp  float kShadowAmount = 0.4;
 
 void main()
 {    
-    gl_FragColor = colorVarying * (kShadowAmount + kShadowAmount * shadow2DProjEXT(shadowMap, shadowCoord));
+    gl_FragColor = colorVarying * ((1.0 - kShadowAmount) + kShadowAmount * shadow2DProjEXT(shadowMap, shadowCoord));
 }
