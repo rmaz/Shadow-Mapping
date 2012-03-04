@@ -32,10 +32,8 @@ static const CGSize kShadowMapSize = { 512, 512 };
         // create a texture to use to render the depth from the lights point of view
         glGenTextures(1, &_depthTexture);
         glBindTexture(GL_TEXTURE_2D, self.depthTexture);
-        
-        // GL_LINEAR does not make sense for shadow maps
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
         
         // we do not want to wrap, this will cause incorrect shadows to be rendered
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
