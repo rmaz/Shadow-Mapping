@@ -24,6 +24,7 @@
 #import "BDPLightShader.h"
 #import "BDPShadowBuffer.h"
 #import "BDPShadowShader.h"
+#import "BDPVarianceShadowBuffer.h"
 
 @interface BDPViewController()
 
@@ -31,22 +32,13 @@
 @property (nonatomic, strong) BDPCubeView *cubeView;
 @property (nonatomic, strong) BDPWallView *wallView;
 @property (nonatomic, strong) BDPShadowBuffer *shadowBuffer;
+@property (nonatomic, strong) BDPVarianceShadowBuffer *varianceShadowBuffer;
 @property (nonatomic, assign) float rotation;
 @property (nonatomic, assign) GLKMatrix4 biasMatrix;
-
-- (void)setupGL;
-- (void)tearDownGL;
 
 @end
 
 @implementation BDPViewController
-
-@synthesize context = _context;
-@synthesize cubeView = _cubeView;
-@synthesize wallView = _wallView;
-@synthesize rotation = _rotation;
-@synthesize shadowBuffer = _shadowBuffer;
-@synthesize biasMatrix = _biasMatrix;
 
 #pragma mark - Constants
 
@@ -85,7 +77,8 @@ static const GLKVector3 kLightLookAt = { 0.0, 0.0, -15.0 };
     
     // create a FBO to render shadows from the lights perspective
     self.shadowBuffer = [[BDPShadowBuffer alloc] init];
-    
+    self.varianceShadowBuffer = [[BDPVarianceShadowBuffer alloc] init];
+
     // we use a bias matrix to shift the depth texture range from [0 1] to [-1 +1]
     self.biasMatrix = GLKMatrix4Make(0.5, 0, 0, 0, 0, 0.5, 0, 0, 0, 0, 0.5, 0, 0.5, 0.5, 0.5, 1.0);
     

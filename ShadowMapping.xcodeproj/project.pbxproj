@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7971D45117CE57B300733B97 /* BDPVarianceShadowBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7971D45017CE57B300733B97 /* BDPVarianceShadowBuffer.m */; };
 		797258911500DE4F0069E259 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 797258901500DE4F0069E259 /* UIKit.framework */; };
 		797258931500DE4F0069E259 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 797258921500DE4F0069E259 /* Foundation.framework */; };
 		797258951500DE4F0069E259 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 797258941500DE4F0069E259 /* CoreGraphics.framework */; };
@@ -30,6 +31,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7971D44F17CE57B300733B97 /* BDPVarianceShadowBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDPVarianceShadowBuffer.h; sourceTree = "<group>"; };
+		7971D45017CE57B300733B97 /* BDPVarianceShadowBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDPVarianceShadowBuffer.m; sourceTree = "<group>"; };
 		7972588C1500DE4F0069E259 /* ShadowMapping.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShadowMapping.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		797258901500DE4F0069E259 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		797258921500DE4F0069E259 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -145,6 +148,8 @@
 				797258D01500E0FA0069E259 /* BDPShadowShader.m */,
 				79C858781500F4FB0040C087 /* BDPShadowBuffer.h */,
 				79C858791500F4FB0040C087 /* BDPShadowBuffer.m */,
+				7971D44F17CE57B300733B97 /* BDPVarianceShadowBuffer.h */,
+				7971D45017CE57B300733B97 /* BDPVarianceShadowBuffer.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -257,6 +262,7 @@
 				797258D71500EE950069E259 /* BDPWallView.m in Sources */,
 				79C8587A1500F4FB0040C087 /* BDPShadowBuffer.m in Sources */,
 				A7AED11315025B9C0088CAC9 /* BDPLightShader.m in Sources */,
+				7971D45117CE57B300733B97 /* BDPVarianceShadowBuffer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
