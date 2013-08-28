@@ -10,6 +10,8 @@
 		7971D45117CE57B300733B97 /* BDPVarianceShadowBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7971D45017CE57B300733B97 /* BDPVarianceShadowBuffer.m */; };
 		7971D45617CE6F6F00733B97 /* VarianceLightShader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 7971D45217CE669000733B97 /* VarianceLightShader.fsh */; };
 		7971D45717CE6F6F00733B97 /* VarianceLightShader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 7971D45317CE669000733B97 /* VarianceLightShader.vsh */; };
+		7971D45A17CE729300733B97 /* BDPVarianceLightShader.m in Sources */ = {isa = PBXBuildFile; fileRef = 7971D45917CE729300733B97 /* BDPVarianceLightShader.m */; };
+		7971D45C17CE740600733B97 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7971D45B17CE740600733B97 /* Default-568h@2x.png */; };
 		797258911500DE4F0069E259 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 797258901500DE4F0069E259 /* UIKit.framework */; };
 		797258931500DE4F0069E259 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 797258921500DE4F0069E259 /* Foundation.framework */; };
 		797258951500DE4F0069E259 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 797258941500DE4F0069E259 /* CoreGraphics.framework */; };
@@ -37,6 +39,9 @@
 		7971D45017CE57B300733B97 /* BDPVarianceShadowBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDPVarianceShadowBuffer.m; sourceTree = "<group>"; };
 		7971D45217CE669000733B97 /* VarianceLightShader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = VarianceLightShader.fsh; path = Shaders/VarianceLightShader.fsh; sourceTree = "<group>"; };
 		7971D45317CE669000733B97 /* VarianceLightShader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = VarianceLightShader.vsh; path = Shaders/VarianceLightShader.vsh; sourceTree = "<group>"; };
+		7971D45817CE729300733B97 /* BDPVarianceLightShader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDPVarianceLightShader.h; sourceTree = "<group>"; };
+		7971D45917CE729300733B97 /* BDPVarianceLightShader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDPVarianceLightShader.m; sourceTree = "<group>"; };
+		7971D45B17CE740600733B97 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		7972588C1500DE4F0069E259 /* ShadowMapping.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShadowMapping.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		797258901500DE4F0069E259 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		797258921500DE4F0069E259 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -90,6 +95,7 @@
 		797258811500DE4F0069E259 = {
 			isa = PBXGroup;
 			children = (
+				7971D45B17CE740600733B97 /* Default-568h@2x.png */,
 				7972589A1500DE4F0069E259 /* ShadowMapping */,
 				7972588F1500DE4F0069E259 /* Frameworks */,
 				7972588D1500DE4F0069E259 /* Products */,
@@ -148,6 +154,8 @@
 				797258CD1500DFEB0069E259 /* GLShader.m */,
 				A7AED11115025B9C0088CAC9 /* BDPLightShader.h */,
 				A7AED11215025B9C0088CAC9 /* BDPLightShader.m */,
+				7971D45817CE729300733B97 /* BDPVarianceLightShader.h */,
+				7971D45917CE729300733B97 /* BDPVarianceLightShader.m */,
 				797258CF1500E0FA0069E259 /* BDPShadowShader.h */,
 				797258D01500E0FA0069E259 /* BDPShadowShader.m */,
 				79C858781500F4FB0040C087 /* BDPShadowBuffer.h */,
@@ -248,6 +256,7 @@
 				7972589F1500DE4F0069E259 /* InfoPlist.strings in Resources */,
 				A7AED10E15025AF50088CAC9 /* LightShader.fsh in Resources */,
 				A7AED10F15025AF50088CAC9 /* LightShader.vsh in Resources */,
+				7971D45C17CE740600733B97 /* Default-568h@2x.png in Resources */,
 				79C858761500EF620040C087 /* ShadowShader.fsh in Resources */,
 				79C858771500EF620040C087 /* ShadowShader.vsh in Resources */,
 			);
@@ -261,6 +270,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				797258A11500DE4F0069E259 /* main.m in Sources */,
+				7971D45A17CE729300733B97 /* BDPVarianceLightShader.m in Sources */,
 				797258A51500DE4F0069E259 /* BDPAppDelegate.m in Sources */,
 				797258BE1500DF6A0069E259 /* GLViewObject.m in Sources */,
 				797258C11500DF7F0069E259 /* BDPCubeView.m in Sources */,
