@@ -22,19 +22,23 @@
 #import "BDPCubeView.h"
 #import "BDPWallView.h"
 #import "BDPLightShader.h"
+#import "BDPVarianceLightShader.h"
 #import "BDPShadowBuffer.h"
 #import "BDPShadowShader.h"
 #import "BDPVarianceShadowBuffer.h"
 
 @interface BDPViewController()
-
-@property (nonatomic, strong) EAGLContext *context;
-@property (nonatomic, strong) BDPCubeView *cubeView;
-@property (nonatomic, strong) BDPWallView *wallView;
-@property (nonatomic, strong) BDPShadowBuffer *shadowBuffer;
-@property (nonatomic, strong) BDPVarianceShadowBuffer *varianceShadowBuffer;
-@property (nonatomic, assign) float rotation;
-@property (nonatomic, assign) GLKMatrix4 biasMatrix;
+{
+    EAGLContext *_context;
+    BDPCubeView *_cubeView;
+    BDPWallView *_wallView;
+    BDPShadowBuffer *_shadowBuffer;
+    BDPVarianceShadowBuffer *_varianceShadowBuffer;
+    BDPLightShader *_lightShader;
+    BDPVarianceLightShader *_varianceLightShader;
+    float _rotation;
+    GLKMatrix4 _biasMatrix;
+}
 
 @end
 
@@ -63,49 +67,49 @@ static const GLKVector3 kLightLookAt = { 0.0, 0.0, -15.0 };
 {
     [super viewDidLoad];
     
-    self.context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
-    
-    if (!self.context) {
+    _context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
+    if (!_context) {
         NSLog(@"Failed to create ES context");
     }
     
     GLKView *view = (GLKView *)self.view;
-    view.context = self.context;
+    view.context = _context;
     view.drawableDepthFormat = GLKViewDrawableDepthFormat24;
     
     [self setupGL];
     
-    // create a FBO to render shadows from the lights perspective
-    self.shadowBuffer = [[BDPShadowBuffer alloc] init];
-    self.varianceShadowBuffer = [[BDPVarianceShadowBuffer alloc] init];
+    // create FBOs to render shadows from the lights perspective
+    _shadowBuffer = [[BDPShadowBuffer alloc] init];
+    _varianceShadowBuffer = [[BDPVarianceShadowBuffer alloc] init];
 
     // we use a bias matrix to shift the depth texture range from [0 1] to [-1 +1]
-    self.biasMatrix = GLKMatrix4Make(0.5, 0, 0, 0, 0, 0.5, 0, 0, 0, 0, 0.5, 0, 0.5, 0.5, 0.5, 1.0);
+    _biasMatrix = GLKMatrix4Make(0.5, 0, 0, 0, 0, 0.5, 0, 0, 0, 0, 0.5, 0, 0.5, 0.5, 0.5, 1.0);
     
     // create the view objects
-    BDPLightShader *lightShader = [[BDPLightShader alloc] init];
+    _lightShader = [[BDPLightShader alloc] init];
+    _varianceLightShader = [[BDPVarianceLightShader alloc] init];
     BDPShadowShader *shadowShader = [[BDPShadowShader alloc] init];
     
     GLKVector3 lightDirection = GLKVector3Normalize(GLKVector3Subtract(kLightLookAt, kLightPosition));
-    self.cubeView = [[BDPCubeView alloc] init];
-    self.cubeView.lightDirection = lightDirection;
-    self.cubeView.lightShader = lightShader;
-    self.cubeView.shadowShader = shadowShader;
-    self.cubeView.shadowTexture = self.shadowBuffer.depthTexture;
+    _cubeView = [[BDPCubeView alloc] init];
+    _cubeView.lightDirection = lightDirection;
+    _cubeView.lightShader = _lightShader;
+    _cubeView.shadowShader = shadowShader;
+    _cubeView.shadowTexture = _shadowBuffer.depthTexture;
     
-    self.wallView = [[BDPWallView alloc] init];
-    self.wallView.lightDirection = lightDirection;
-    self.wallView.lightShader = lightShader;
-    self.wallView.shadowShader = shadowShader;
-    self.wallView.shadowTexture = self.shadowBuffer.depthTexture;
+    _wallView = [[BDPWallView alloc] init];
+    _wallView.lightDirection = lightDirection;
+    _wallView.lightShader = _lightShader;
+    _wallView.shadowShader = shadowShader;
+    _wallView.shadowTexture = _shadowBuffer.depthTexture;
     
     // the wall is static, set its mv matrix now
-    self.wallView.modelMatrix = GLKMatrix4Multiply(GLKMatrix4MakeTranslation(0, 0, kWallZ), GLKMatrix4MakeScale(kWallSize, kWallSize, 1.0));
+    _wallView.modelMatrix = GLKMatrix4Multiply(GLKMatrix4MakeTranslation(0, 0, kWallZ), GLKMatrix4MakeScale(kWallSize, kWallSize, 1.0));
 }
 
 - (void)setupGL
 {
-    [EAGLContext setCurrentContext:self.context];
+    [EAGLContext setCurrentContext:_context];
     
     // we always have face culling and depth testing
     glEnable(GL_CULL_FACE);
@@ -115,10 +119,10 @@ static const GLKVector3 kLightLookAt = { 0.0, 0.0, -15.0 };
 
 - (void)tearDownGL
 {
-    if ([EAGLContext currentContext] == self.context) {
+    if ([EAGLContext currentContext] == _context) {
         [EAGLContext setCurrentContext:nil];
     }
-	self.context = nil;
+	_context = nil;
 }
 
 - (void)viewDidUnload
@@ -126,8 +130,8 @@ static const GLKVector3 kLightLookAt = { 0.0, 0.0, -15.0 };
     [super viewDidUnload];
     
     [self tearDownGL];
-    self.cubeView = nil;
-    self.wallView = nil;
+    _cubeView = nil;
+    _wallView = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -140,20 +144,20 @@ static const GLKVector3 kLightLookAt = { 0.0, 0.0, -15.0 };
 - (void)update
 {
     NSTimeInterval dt = self.timeSinceLastUpdate;
-    self.rotation += dt * kCubeRotationSpeed;
+    _rotation += dt * kCubeRotationSpeed;
     
     // rotate the cube around it's axes
-    GLKMatrix4 worldMatrix = GLKMatrix4MakeRotation(self.rotation, 1.0, 1.0, 1.0);
+    GLKMatrix4 worldMatrix = GLKMatrix4MakeRotation(_rotation, 1.0, 1.0, 1.0);
     
     // move the cube to the rotation radius
     worldMatrix = GLKMatrix4Multiply(GLKMatrix4MakeTranslation(0, 0, kCubeRotationRadius), worldMatrix);
     
     // rotate the cube around the origin
-    worldMatrix = GLKMatrix4Multiply(GLKMatrix4MakeYRotation(self.rotation), worldMatrix);
+    worldMatrix = GLKMatrix4Multiply(GLKMatrix4MakeYRotation(_rotation), worldMatrix);
     
     // shift the cube into the distance
     worldMatrix = GLKMatrix4Multiply(GLKMatrix4MakeTranslation(0, 0, kCubeRotationZ), worldMatrix);
-    self.cubeView.modelMatrix = worldMatrix;
+    _cubeView.modelMatrix = worldMatrix;
 }
 
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect
@@ -163,8 +167,8 @@ static const GLKVector3 kLightLookAt = { 0.0, 0.0, -15.0 };
     float far = 1.0 - kWallZ;
     
     // first we render to the shadow FBO from the lights perspective
-    glBindFramebuffer(GL_FRAMEBUFFER, self.shadowBuffer.bufferID);
-    glViewport(0, 0, self.shadowBuffer.bufferSize.width, self.shadowBuffer.bufferSize.height);
+    glBindFramebuffer(GL_FRAMEBUFFER, _shadowBuffer.bufferID);
+    glViewport(0, 0, _shadowBuffer.bufferSize.width, _shadowBuffer.bufferSize.height);
     glClear(GL_DEPTH_BUFFER_BIT);
     
     // disable colour rendering for now
@@ -172,7 +176,7 @@ static const GLKVector3 kLightLookAt = { 0.0, 0.0, -15.0 };
     
     // create the projection matrix from the cameras view
     GLKMatrix4 cameraViewMatrix = GLKMatrix4MakeLookAt(kLightPosition.x, kLightPosition.y, kLightPosition.z, kLightLookAt.x, kLightLookAt.y, kLightLookAt.z, 0, 1, 0);
-    float shadowAspect = self.shadowBuffer.bufferSize.width / self.shadowBuffer.bufferSize.height;
+    float shadowAspect = _shadowBuffer.bufferSize.width / _shadowBuffer.bufferSize.height;
     GLKMatrix4 cameraProjectionMatrix = GLKMatrix4MakePerspective(fieldOfView, shadowAspect, near, far);
     GLKMatrix4 shadowMatrix = GLKMatrix4Multiply(cameraProjectionMatrix, cameraViewMatrix);
     
@@ -180,7 +184,7 @@ static const GLKVector3 kLightLookAt = { 0.0, 0.0, -15.0 };
     glCullFace(GL_FRONT);
     
     // we only draw the shadow casting objects as fast as possible
-    [self.cubeView renderWithLightMatrix:shadowMatrix];
+    [_cubeView renderWithLightMatrix:shadowMatrix];
     
     // switch back to the main render buffer
     // this will also restore the viewport
@@ -199,9 +203,9 @@ static const GLKVector3 kLightLookAt = { 0.0, 0.0, -15.0 };
     
     // calculate the texture projection matrix, takes the pixels from world space
     // to light projection space
-    GLKMatrix4 textureMatrix = GLKMatrix4Multiply(self.biasMatrix, shadowMatrix);
+    GLKMatrix4 textureMatrix = GLKMatrix4Multiply(_biasMatrix, shadowMatrix);
     
-    [self.wallView renderWithProjectionMatrix:perspectiveMatrix textureMatrix:textureMatrix];
-    [self.cubeView renderWithProjectionMatrix:perspectiveMatrix textureMatrix:textureMatrix];
+    [_wallView renderWithProjectionMatrix:perspectiveMatrix textureMatrix:textureMatrix];
+    [_cubeView renderWithProjectionMatrix:perspectiveMatrix textureMatrix:textureMatrix];
 }
 @end
