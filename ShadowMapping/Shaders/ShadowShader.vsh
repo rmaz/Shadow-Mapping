@@ -22,8 +22,8 @@ attribute highp   vec4 position;
 attribute mediump vec3 normal;
 attribute lowp    vec3 colour;
 
-varying lowp    vec4 colorVarying;
-varying highp   vec4 shadowCoord; 
+varying lowp  vec4 colorVarying;
+varying highp vec4 shadowCoord; 
 
 uniform highp   mat4 modelViewProjectionMatrix;
 uniform mediump mat3 normalMatrix;

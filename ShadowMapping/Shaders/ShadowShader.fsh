@@ -25,7 +25,7 @@ varying highp vec4 shadowCoord;
 
 uniform sampler2DShadow shadowMap;
 
-const lowp  float kShadowAmount = 0.4;
+const lowp float kShadowAmount = 0.4;
 
 void main()
 {    

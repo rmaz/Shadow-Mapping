@@ -30,6 +30,6 @@ void main()
     // calulcate the depth of this vertex for shadowing
     depth = gl_Position.z / gl_Position.w;
 
-    // and make sure to bias it back to [0 1]
+    // and make sure to bias it to [0 1]
     depth = 0.5 + 0.5 * depth;
 }

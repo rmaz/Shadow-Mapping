@@ -23,8 +23,9 @@
 #import "BDPWallView.h"
 #import "BDPLightShader.h"
 #import "BDPVarianceLightShader.h"
-#import "BDPShadowBuffer.h"
 #import "BDPShadowShader.h"
+#import "BDPVarianceShadowShader.h"
+#import "BDPShadowBuffer.h"
 #import "BDPVarianceShadowBuffer.h"
 
 @interface BDPViewController()
@@ -36,6 +37,8 @@
     BDPVarianceShadowBuffer *_varianceShadowBuffer;
     BDPLightShader *_lightShader;
     BDPVarianceLightShader *_varianceLightShader;
+    BDPShadowShader *_shadowShader;
+    BDPVarianceShadowShader *_varianceShadowShader;
     float _rotation;
     GLKMatrix4 _biasMatrix;
 }
@@ -88,19 +91,20 @@ static const GLKVector3 kLightLookAt = { 0.0, 0.0, -15.0 };
     // create the view objects
     _lightShader = [[BDPLightShader alloc] init];
     _varianceLightShader = [[BDPVarianceLightShader alloc] init];
-    BDPShadowShader *shadowShader = [[BDPShadowShader alloc] init];
+    _shadowShader = [[BDPShadowShader alloc] init];
+    _varianceShadowShader = [[BDPVarianceShadowShader alloc] init];
     
     GLKVector3 lightDirection = GLKVector3Normalize(GLKVector3Subtract(kLightLookAt, kLightPosition));
     _cubeView = [[BDPCubeView alloc] init];
     _cubeView.lightDirection = lightDirection;
     _cubeView.lightShader = _lightShader;
-    _cubeView.shadowShader = shadowShader;
+    _cubeView.shadowShader = _shadowShader;
     _cubeView.shadowTexture = _shadowBuffer.depthTexture;
     
     _wallView = [[BDPWallView alloc] init];
     _wallView.lightDirection = lightDirection;
     _wallView.lightShader = _lightShader;
-    _wallView.shadowShader = shadowShader;
+    _wallView.shadowShader = _shadowShader;
     _wallView.shadowTexture = _shadowBuffer.depthTexture;
     
     // the wall is static, set its mv matrix now
@@ -169,7 +173,7 @@ static const GLKVector3 kLightLookAt = { 0.0, 0.0, -15.0 };
     // first we render to the shadow FBO from the lights perspective
     glBindFramebuffer(GL_FRAMEBUFFER, _shadowBuffer.bufferID);
     glViewport(0, 0, _shadowBuffer.bufferSize.width, _shadowBuffer.bufferSize.height);
-    glClear(GL_DEPTH_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     
     // disable colour rendering for now
     glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);

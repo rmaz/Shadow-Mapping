@@ -1,4 +1,4 @@
-// Copyright (c) 2012 Richard Mazorodze
+// Copyright (c) 2013 Richard Mazorodze
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -18,11 +18,28 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-attribute highp vec4 position;
-uniform highp mat4 modelViewProjectionMatrix;
+attribute highp   vec4 position;
+attribute mediump vec3 normal;
+attribute lowp    vec3 colour;
+
+varying lowp  vec4 colorVarying;
+varying highp vec4 shadowCoord; 
+
+uniform highp   mat4 modelViewProjectionMatrix;
+uniform mediump mat3 normalMatrix;
+uniform highp   mat4 shadowProjectionMatrix;
+uniform mediump vec3 lightDirection;
 
 void main()
 {
-    // we only care about the vertex position
+    // get the projected vertex position
     gl_Position = modelViewProjectionMatrix * position;
+    
+    // calculate the diffuse light contribution
+    mediump vec3 eyeNormal = normalize(normalMatrix * normal);    
+    mediump float nDotVP = max(0.0, -dot(eyeNormal, lightDirection));
+    colorVarying = vec4(colour * nDotVP, 1.0);
+    
+    // calculate the coordinates to use in the shadow texture
+    shadowCoord = shadowProjectionMatrix * position;
 }

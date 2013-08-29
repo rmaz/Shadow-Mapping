@@ -1,4 +1,4 @@
-// Copyright (c) 2012 Richard Mazorodze
+// Copyright (c) 2013 Richard Mazorodze
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -18,11 +18,27 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-attribute highp vec4 position;
-uniform highp mat4 modelViewProjectionMatrix;
+#import "BDPVarianceShadowShader.h"
 
-void main()
+@implementation BDPVarianceShadowShader
+
+- (id)init
 {
-    // we only care about the vertex position
-    gl_Position = modelViewProjectionMatrix * position;
+    NSArray *attributes = [NSArray arrayWithObjects:
+                           @"position",
+                           @"normal",
+                           @"colour",
+                           nil];
+
+    NSArray *uniforms = [NSArray arrayWithObjects:
+                         @"modelViewProjectionMatrix",
+                         @"normalMatrix",
+                         @"lightDirection",
+                         @"shadowProjectionMatrix",
+                         @"shadowMap",
+                         nil];
+
+    return [super initWithShaderName:@"VarianceShadowShader" attributes:attributes uniforms:uniforms];
 }
+
+@end
