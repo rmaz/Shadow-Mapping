@@ -1,1 +1,1 @@
-A simple working example of shadow mapping on iOS, using a FBO with a depth texture attachment.
+A simple working example of shadow mapping and variance shadow mapping on iOS. The basic shadow mapping implementation uses a FBO with a depth texture attachment, the variance shadow mapping implementation uses a FBO with half float RG textures, and a Gaussian blur pass to smooth the shadows.
