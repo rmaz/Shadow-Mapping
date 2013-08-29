@@ -24,6 +24,7 @@ varying highp vec4 shadowCoord;
 uniform sampler2D shadowMap;
 
 const highp float kMinVariance = 0.000001;
+const lowp  float kShadowAmount = 0.4;
 
 lowp float chebyshevUpperBound(highp vec3 coords)
 {
@@ -39,7 +40,7 @@ lowp float chebyshevUpperBound(highp vec3 coords)
 	highp float variance = moments.g - (moments.r * moments.r);
 	variance = max(variance, kMinVariance);
 
-    // Calculate the probabilistic uppoer bound.
+    // Calculate the probabilistic upper bound.
 	highp float d = coords.z - moments.r;
     lowp float p_max = variance / (variance + d*d);
 
@@ -49,7 +50,7 @@ lowp float chebyshevUpperBound(highp vec3 coords)
 void main()
 {
     highp vec3 postWCoord = shadowCoord.xyz / shadowCoord.w;
-    lowp float shadowAmount = chebyshevUpperBound(postWCoord);
+    lowp float pShadow = chebyshevUpperBound(postWCoord);
 
-    gl_FragColor = colorVarying * shadowAmount;
+    gl_FragColor = colorVarying * (1.0 - kShadowAmount + kShadowAmount * pShadow);
 }
