@@ -81,37 +81,18 @@ static const GLKVector3 kLightLookAt = { 0.0, 0.0, -15.0 };
     view.drawableDepthFormat = GLKViewDrawableDepthFormat24;
     
     [self setupGL];
-    
-    // create FBOs to render shadows from the lights perspective
-    _shadowBuffer = [[BDPShadowBuffer alloc] init];
-    _varianceShadowBuffer = [[BDPVarianceShadowBuffer alloc] init];
 
-    // we use a bias matrix to shift the depth texture range from [0 1] to [-1 +1]
-    _biasMatrix = GLKMatrix4Make(0.5, 0, 0, 0, 0, 0.5, 0, 0, 0, 0, 0.5, 0, 0.5, 0.5, 0.5, 1.0);
-    
-    // create the view objects
-    _lightShader = [[BDPLightShader alloc] init];
-    _varianceLightShader = [[BDPVarianceLightShader alloc] init];
-    _shadowShader = [[BDPShadowShader alloc] init];
-    _varianceShadowShader = [[BDPVarianceShadowShader alloc] init];
-    
-    GLKVector3 lightDirection = GLKVector3Normalize(GLKVector3Subtract(kLightLookAt, kLightPosition));
-    _cubeView = [[BDPCubeView alloc] init];
-    _cubeView.lightDirection = lightDirection;
-    _cubeView.lightShader = _varianceLightShader;
-    _cubeView.shadowShader = _varianceShadowShader;
-    _cubeView.shadowTexture = _varianceShadowBuffer.texture;
-    
-    _wallView = [[BDPWallView alloc] init];
-    _wallView.lightDirection = lightDirection;
-    _wallView.lightShader = _varianceLightShader;
-    _wallView.shadowShader = _varianceShadowShader;
-    _wallView.shadowTexture = _varianceShadowBuffer.texture;
-
-    _useVarianceShadows=YES;
-
-    // the wall is static, set its mv matrix now
-    _wallView.modelMatrix = GLKMatrix4Multiply(GLKMatrix4MakeTranslation(0, 0, kWallZ), GLKMatrix4MakeScale(kWallSize, kWallSize, 1.0));
+    // use a segmented control to switch the shadow map modes
+    UISegmentedControl *segmentControl = [[UISegmentedControl alloc] initWithItems:@[ @"Shadow Map", @"Variance Shadow Map"]];
+    segmentControl.selectedSegmentIndex = 0;
+    [segmentControl addTarget:self action:@selector(segmentControlChanged:) forControlEvents:UIControlEventValueChanged];
+    CGRect frame;
+    frame.size = [segmentControl sizeThatFits:CGSizeZero];
+    frame.origin.x = floorf((view.bounds.size.width - frame.size.width) / 2.0f);
+    frame.origin.y = view.bounds.size.height - frame.size.height - 10;
+    segmentControl.frame = frame;
+    segmentControl.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
+    [view addSubview:segmentControl];
 }
 
 - (void)setupGL
@@ -122,6 +103,35 @@ static const GLKVector3 kLightLookAt = { 0.0, 0.0, -15.0 };
     glEnable(GL_CULL_FACE);
     glEnable(GL_DEPTH_TEST);
     glClearColor(0.7, 0.7, 0.7, 1.0);
+
+    // create FBOs to render shadows from the lights perspective
+    _shadowBuffer = [[BDPShadowBuffer alloc] init];
+    _varianceShadowBuffer = [[BDPVarianceShadowBuffer alloc] init];
+
+    // we use a bias matrix to shift the depth texture range from [0 1] to [-1 +1]
+    _biasMatrix = GLKMatrix4Make(0.5, 0, 0, 0, 0, 0.5, 0, 0, 0, 0, 0.5, 0, 0.5, 0.5, 0.5, 1.0);
+
+    // create the view objects
+    _lightShader = [[BDPLightShader alloc] init];
+    _varianceLightShader = [[BDPVarianceLightShader alloc] init];
+    _shadowShader = [[BDPShadowShader alloc] init];
+    _varianceShadowShader = [[BDPVarianceShadowShader alloc] init];
+
+    GLKVector3 lightDirection = GLKVector3Normalize(GLKVector3Subtract(kLightLookAt, kLightPosition));
+    _cubeView = [[BDPCubeView alloc] init];
+    _cubeView.lightDirection = lightDirection;
+    _cubeView.lightShader = _lightShader;
+    _cubeView.shadowShader = _shadowShader;
+    _cubeView.shadowTexture = _shadowBuffer.texture;
+
+    _wallView = [[BDPWallView alloc] init];
+    _wallView.lightDirection = lightDirection;
+    _wallView.lightShader = _lightShader;
+    _wallView.shadowShader = _shadowShader;
+    _wallView.shadowTexture = _shadowBuffer.texture;
+
+    // the wall is static, set its mv matrix now
+    _wallView.modelMatrix = GLKMatrix4Multiply(GLKMatrix4MakeTranslation(0, 0, kWallZ), GLKMatrix4MakeScale(kWallSize, kWallSize, 1.0));
 }
 
 - (void)tearDownGL
@@ -130,20 +140,52 @@ static const GLKVector3 kLightLookAt = { 0.0, 0.0, -15.0 };
         [EAGLContext setCurrentContext:nil];
     }
 	_context = nil;
+    _shadowBuffer = nil;
+    _varianceShadowBuffer = nil;
+    _lightShader = nil;
+    _varianceLightShader = nil;
+    _shadowShader = nil;
+    _varianceShadowShader = nil;
+    _cubeView = nil;
+    _wallView = nil;
 }
 
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-    
     [self tearDownGL];
-    _cubeView = nil;
-    _wallView = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return YES;
+}
+
+#pragma mark - Action Methods
+
+- (void)segmentControlChanged:(UISegmentedControl *)control
+{
+    _useVarianceShadows = control.selectedSegmentIndex == 1;
+
+    BDPLightShader *lightShader;
+    BDPShadowShader *shadowShader;
+    GLFBO *shadowBuffer;
+    if (_useVarianceShadows) {
+        lightShader = _varianceLightShader;
+        shadowShader = _varianceShadowShader;
+        shadowBuffer = _varianceShadowBuffer;
+    } else {
+        lightShader = _lightShader;
+        shadowShader = _shadowShader;
+        shadowBuffer = _shadowBuffer;
+    }
+
+    _cubeView.lightShader = lightShader;
+    _cubeView.shadowShader = shadowShader;
+    _cubeView.shadowTexture = shadowBuffer.texture;
+    _wallView.lightShader = lightShader;
+    _wallView.shadowShader = shadowShader;
+    _wallView.shadowTexture = shadowBuffer.texture;
 }
 
 #pragma mark - GLKView Delegate Methods
