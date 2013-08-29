@@ -84,8 +84,7 @@ static const float kFilterWeights[] = { 0.1715822145829915, 0.28298460692918953,
         // even though it is pixel aligned, we use the GPU filtering to help the blur
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-        //glGenerateMipmap(GL_TEXTURE_2D);
-        
+
         // no point wrapping, keep the edges darker
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);

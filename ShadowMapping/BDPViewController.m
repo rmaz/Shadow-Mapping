@@ -241,6 +241,8 @@ static const GLKVector3 kLightLookAt = { 0.0, 0.0, -15.0 };
     // we only draw the shadow casting objects as fast as possible
     [_cubeView renderWithLightMatrix:shadowMatrix];
 
+    glCullFace(GL_BACK);
+
     // if we are using variance shadow maps, blur the textures now
     if (_useVarianceShadows) {
         [_blurFilter blurTexture:_varianceShadowBuffer.bufferID];
@@ -251,9 +253,6 @@ static const GLKVector3 kLightLookAt = { 0.0, 0.0, -15.0 };
     [view bindDrawable];
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glEnable(GL_DEPTH_TEST);
-    
-    // render only front faces
-    glCullFace(GL_BACK);
     
     // calculate a perspective matrix for the current view size
     float aspectRatio = rect.size.width / rect.size.height;

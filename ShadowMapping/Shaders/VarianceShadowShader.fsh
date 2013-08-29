@@ -23,7 +23,7 @@ varying highp vec4 shadowCoord;
 
 uniform sampler2D shadowMap;
 
-const highp float kMinVariance = 0.000001;
+const highp float kMinVariance = 0.00002;
 const lowp  float kShadowAmount = 0.4;
 
 lowp float chebyshevUpperBound(highp vec3 coords)
