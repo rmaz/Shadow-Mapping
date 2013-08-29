@@ -35,10 +35,12 @@ static const CGSize kShadowMapSize = { 512, 512 };
         // create a texture to use to render the depth & depth squared from the lights point of view
         // variance shadow maps differ in that they use an extra channel, mipmapping and filtering
         // and they do not require hardware depth compares
-        glGenTextures(1, &_texture);
-        glBindTexture(GL_TEXTURE_2D, self.texture);
+        GLuint texture;
+        glGenTextures(1, &texture);
+        glBindTexture(GL_TEXTURE_2D, texture);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        self.texture = texture;
 
         // we do not want to wrap, this will cause incorrect shadows to be rendered
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
@@ -51,8 +53,10 @@ static const CGSize kShadowMapSize = { 512, 512 };
         glBindTexture(GL_TEXTURE_2D, 0);
 
         // create a framebuffer object to attach the depth texture to
-        glGenFramebuffers(1, &_bufferID);
-        glBindFramebuffer(GL_FRAMEBUFFER, self.bufferID);
+        GLuint bufferID;
+        glGenFramebuffers(1, &bufferID);
+        glBindFramebuffer(GL_FRAMEBUFFER, bufferID);
+        self.bufferID = bufferID;
 
         // attach the depth texture to the render buffer
         glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, self.texture, 0);
@@ -67,8 +71,10 @@ static const CGSize kShadowMapSize = { 512, 512 };
 
 - (void)dealloc
 {
-    glDeleteTextures(1, &_texture);
-    glDeleteFramebuffers(1, &_bufferID);
+    GLuint texture = self.texture;
+    GLuint bufferID = self.bufferID;
+    glDeleteTextures(1, &texture);
+    glDeleteFramebuffers(1, &bufferID);
 }
 
 #pragma mark - Properties

@@ -18,12 +18,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import <Foundation/Foundation.h>
+#import "GLFBO.h"
 
-@interface BDPVarianceShadowBuffer : NSObject
-
-@property (nonatomic, assign, readonly) GLuint bufferID;
-@property (nonatomic, assign, readonly) GLuint texture;
-@property (nonatomic, assign, readonly) CGSize bufferSize;
+@interface BDPVarianceShadowBuffer : GLFBO
 
 @end

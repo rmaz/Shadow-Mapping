@@ -20,17 +20,7 @@
 
 #import "BDPShadowBuffer.h"
 
-@interface BDPShadowBuffer()
-
-@property (nonatomic, assign, readwrite) GLuint bufferID;
-@property (nonatomic, assign, readwrite) GLuint depthTexture;
-
-@end
-
 @implementation BDPShadowBuffer
-
-@synthesize bufferID = _bufferID;
-@synthesize depthTexture = _depthTexture;
 
 #pragma mark - Constants
 
@@ -43,10 +33,12 @@ static const CGSize kShadowMapSize = { 512, 512 };
     self = [super init];
     if (self != nil) {
         // create a texture to use to render the depth from the lights point of view
-        glGenTextures(1, &_depthTexture);
-        glBindTexture(GL_TEXTURE_2D, self.depthTexture);
+        GLuint depthTexture;
+        glGenTextures(1, &depthTexture);
+        glBindTexture(GL_TEXTURE_2D, depthTexture);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        self.texture = depthTexture;
         
         // we do not want to wrap, this will cause incorrect shadows to be rendered
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
@@ -63,11 +55,13 @@ static const CGSize kShadowMapSize = { 512, 512 };
         glBindTexture(GL_TEXTURE_2D, 0);
         
         // create a framebuffer object to attach the depth texture to
-        glGenFramebuffers(1, &_bufferID);
-        glBindFramebuffer(GL_FRAMEBUFFER, self.bufferID);
-        
+        GLuint bufferID;
+        glGenFramebuffers(1, &bufferID);
+        glBindFramebuffer(GL_FRAMEBUFFER, bufferID);
+        self.bufferID = bufferID;
+
         // attach the depth texture to the render buffer
-        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, self.depthTexture, 0);
+        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, self.texture, 0);
         GLenum status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
         NSAssert(status == GL_FRAMEBUFFER_COMPLETE, @"error creating shadow FBO, status code 0x%4x", status);
         
@@ -79,8 +73,10 @@ static const CGSize kShadowMapSize = { 512, 512 };
 
 - (void)dealloc
 {
-    glDeleteTextures(1, &_depthTexture);
-    glDeleteFramebuffers(1, &_bufferID);
+    GLuint texture = self.texture;
+    GLuint bufferID = self.bufferID;
+    glDeleteTextures(1, &texture);
+    glDeleteFramebuffers(1, &bufferID);
 }
 
 #pragma mark - Properties

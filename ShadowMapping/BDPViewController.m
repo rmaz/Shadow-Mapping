@@ -41,6 +41,7 @@
     BDPVarianceShadowShader *_varianceShadowShader;
     float _rotation;
     GLKMatrix4 _biasMatrix;
+    BOOL _useVarianceShadows;
 }
 
 @end
@@ -99,14 +100,16 @@ static const GLKVector3 kLightLookAt = { 0.0, 0.0, -15.0 };
     _cubeView.lightDirection = lightDirection;
     _cubeView.lightShader = _varianceLightShader;
     _cubeView.shadowShader = _varianceShadowShader;
-    _cubeView.shadowTexture = _shadowBuffer.depthTexture;
+    _cubeView.shadowTexture = _varianceShadowBuffer.texture;
     
     _wallView = [[BDPWallView alloc] init];
     _wallView.lightDirection = lightDirection;
     _wallView.lightShader = _varianceLightShader;
     _wallView.shadowShader = _varianceShadowShader;
-    _wallView.shadowTexture = _shadowBuffer.depthTexture;
-    
+    _wallView.shadowTexture = _varianceShadowBuffer.texture;
+
+    _useVarianceShadows=YES;
+
     // the wall is static, set its mv matrix now
     _wallView.modelMatrix = GLKMatrix4Multiply(GLKMatrix4MakeTranslation(0, 0, kWallZ), GLKMatrix4MakeScale(kWallSize, kWallSize, 1.0));
 }
@@ -169,18 +172,22 @@ static const GLKVector3 kLightLookAt = { 0.0, 0.0, -15.0 };
     float fieldOfView = GLKMathDegreesToRadians(65);
     float near = 1.0;
     float far = 1.0 - kWallZ;
-    
+
+    // pick the correct framebuffer to use
+    GLFBO *shadowFBO = _useVarianceShadows ? _varianceShadowBuffer : _shadowBuffer;
+    CGSize fboSize = shadowFBO.bufferSize;
+
     // first we render to the shadow FBO from the lights perspective
-    glBindFramebuffer(GL_FRAMEBUFFER, _shadowBuffer.bufferID);
-    glViewport(0, 0, _shadowBuffer.bufferSize.width, _shadowBuffer.bufferSize.height);
+    glBindFramebuffer(GL_FRAMEBUFFER, shadowFBO.bufferID);
+    glViewport(0, 0, fboSize.width, fboSize.height);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     
     // disable colour rendering for now
-    glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
+    //glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
     
     // create the projection matrix from the cameras view
     GLKMatrix4 cameraViewMatrix = GLKMatrix4MakeLookAt(kLightPosition.x, kLightPosition.y, kLightPosition.z, kLightLookAt.x, kLightLookAt.y, kLightLookAt.z, 0, 1, 0);
-    float shadowAspect = _shadowBuffer.bufferSize.width / _shadowBuffer.bufferSize.height;
+    float shadowAspect = fboSize.width / fboSize.height;
     GLKMatrix4 cameraProjectionMatrix = GLKMatrix4MakePerspective(fieldOfView, shadowAspect, near, far);
     GLKMatrix4 shadowMatrix = GLKMatrix4Multiply(cameraProjectionMatrix, cameraViewMatrix);
     
@@ -195,7 +202,7 @@ static const GLKVector3 kLightLookAt = { 0.0, 0.0, -15.0 };
     [view bindDrawable];
     
     // reenable colour rendering
-    glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
+    //glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     
     // render only front faces
