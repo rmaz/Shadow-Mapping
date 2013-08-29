@@ -18,8 +18,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "GLShader.h"
+#import "BDPLightShader.h"
 
-@interface BDPVarianceLightShader : GLShader
+@interface BDPVarianceLightShader : BDPLightShader
 
 @end

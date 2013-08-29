@@ -97,14 +97,14 @@ static const GLKVector3 kLightLookAt = { 0.0, 0.0, -15.0 };
     GLKVector3 lightDirection = GLKVector3Normalize(GLKVector3Subtract(kLightLookAt, kLightPosition));
     _cubeView = [[BDPCubeView alloc] init];
     _cubeView.lightDirection = lightDirection;
-    _cubeView.lightShader = _lightShader;
-    _cubeView.shadowShader = _shadowShader;
+    _cubeView.lightShader = _varianceLightShader;
+    _cubeView.shadowShader = _varianceShadowShader;
     _cubeView.shadowTexture = _shadowBuffer.depthTexture;
     
     _wallView = [[BDPWallView alloc] init];
     _wallView.lightDirection = lightDirection;
-    _wallView.lightShader = _lightShader;
-    _wallView.shadowShader = _shadowShader;
+    _wallView.lightShader = _varianceLightShader;
+    _wallView.shadowShader = _varianceShadowShader;
     _wallView.shadowTexture = _shadowBuffer.depthTexture;
     
     // the wall is static, set its mv matrix now
