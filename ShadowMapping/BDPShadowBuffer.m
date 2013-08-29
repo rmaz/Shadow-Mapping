@@ -24,7 +24,7 @@
 
 #pragma mark - Constants
 
-static const CGSize kShadowMapSize = { 512, 512 }; 
+static const CGSize kShadowMapSize = { 256, 256 };
 
 #pragma mark - Init & Dealloc
 

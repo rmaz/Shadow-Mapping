@@ -24,7 +24,7 @@
 
 #pragma mark - Constants
 
-static const CGSize kShadowMapSize = { 512, 512 };
+static const CGSize kShadowMapSize = { 256, 256 };
 
 #pragma mark - Init & Dealloc
 
@@ -33,7 +33,7 @@ static const CGSize kShadowMapSize = { 512, 512 };
     self = [super init];
     if (self != nil) {
         // create a texture to use to render the depth & depth squared from the lights point of view
-        // variance shadow maps differ in that they use an extra channel, mipmapping and filtering
+        // variance shadow maps differ in that they use an extra channel and can be filtered,
         // and they do not require hardware depth compares
         GLuint texture;
         glGenTextures(1, &texture);
@@ -48,9 +48,6 @@ static const CGSize kShadowMapSize = { 512, 512 };
 
         // create the depth texture
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RG_EXT, kShadowMapSize.width, kShadowMapSize.height, 0, GL_RG_EXT, GL_HALF_FLOAT_OES, 0);
-
-        // and the mip map chain
-        //glGenerateMipmap(GL_TEXTURE_2D);
 
         // unbind it for now
         glBindTexture(GL_TEXTURE_2D, 0);
