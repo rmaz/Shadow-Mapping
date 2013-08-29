@@ -30,9 +30,13 @@
 		797258D11500E0FA0069E259 /* BDPShadowShader.m in Sources */ = {isa = PBXBuildFile; fileRef = 797258D01500E0FA0069E259 /* BDPShadowShader.m */; };
 		797258D41500E6610069E259 /* BDPViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 797258D31500E6610069E259 /* BDPViewController.m */; };
 		797258D71500EE950069E259 /* BDPWallView.m in Sources */ = {isa = PBXBuildFile; fileRef = 797258D61500EE950069E259 /* BDPWallView.m */; };
+		7997384217CF4CC200650F1E /* GLBlurShader.m in Sources */ = {isa = PBXBuildFile; fileRef = 7997384117CF4CC200650F1E /* GLBlurShader.m */; };
+		7997384917CF4D4100650F1E /* GLBlurFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7997384817CF4D4100650F1E /* GLBlurFilter.m */; };
 		79C858761500EF620040C087 /* ShadowShader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 79C858721500EF620040C087 /* ShadowShader.fsh */; };
 		79C858771500EF620040C087 /* ShadowShader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 79C858731500EF620040C087 /* ShadowShader.vsh */; };
 		79C8587A1500F4FB0040C087 /* BDPShadowBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 79C858791500F4FB0040C087 /* BDPShadowBuffer.m */; };
+		79EDBFB617CF4F0700C84659 /* BlurShader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 7997384317CF4D0300650F1E /* BlurShader.fsh */; };
+		79EDBFB717CF4F0700C84659 /* BlurShader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 7997384417CF4D0300650F1E /* BlurShader.vsh */; };
 		A7AED10E15025AF50088CAC9 /* LightShader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = A7AED10C15025AF50088CAC9 /* LightShader.fsh */; };
 		A7AED10F15025AF50088CAC9 /* LightShader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = A7AED10D15025AF50088CAC9 /* LightShader.vsh */; };
 		A7AED11315025B9C0088CAC9 /* BDPLightShader.m in Sources */ = {isa = PBXBuildFile; fileRef = A7AED11215025B9C0088CAC9 /* BDPLightShader.m */; };
@@ -76,6 +80,12 @@
 		797258D31500E6610069E259 /* BDPViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDPViewController.m; sourceTree = "<group>"; };
 		797258D51500EE950069E259 /* BDPWallView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDPWallView.h; sourceTree = "<group>"; };
 		797258D61500EE950069E259 /* BDPWallView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDPWallView.m; sourceTree = "<group>"; };
+		7997384017CF4CC200650F1E /* GLBlurShader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLBlurShader.h; sourceTree = "<group>"; };
+		7997384117CF4CC200650F1E /* GLBlurShader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLBlurShader.m; sourceTree = "<group>"; };
+		7997384317CF4D0300650F1E /* BlurShader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = BlurShader.fsh; sourceTree = "<group>"; };
+		7997384417CF4D0300650F1E /* BlurShader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = BlurShader.vsh; sourceTree = "<group>"; };
+		7997384717CF4D4100650F1E /* GLBlurFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLBlurFilter.h; sourceTree = "<group>"; };
+		7997384817CF4D4100650F1E /* GLBlurFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLBlurFilter.m; sourceTree = "<group>"; };
 		79C858721500EF620040C087 /* ShadowShader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = ShadowShader.fsh; path = Shaders/ShadowShader.fsh; sourceTree = "<group>"; };
 		79C858731500EF620040C087 /* ShadowShader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = ShadowShader.vsh; path = Shaders/ShadowShader.vsh; sourceTree = "<group>"; };
 		79C858781500F4FB0040C087 /* BDPShadowBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDPShadowBuffer.h; sourceTree = "<group>"; };
@@ -164,6 +174,10 @@
 				7971D46517CF401100733B97 /* GLFBO.m */,
 				797258CC1500DFEB0069E259 /* GLShader.h */,
 				797258CD1500DFEB0069E259 /* GLShader.m */,
+				7997384017CF4CC200650F1E /* GLBlurShader.h */,
+				7997384117CF4CC200650F1E /* GLBlurShader.m */,
+				7997384717CF4D4100650F1E /* GLBlurFilter.h */,
+				7997384817CF4D4100650F1E /* GLBlurFilter.m */,
 				A7AED11115025B9C0088CAC9 /* BDPLightShader.h */,
 				A7AED11215025B9C0088CAC9 /* BDPLightShader.m */,
 				7971D45817CE729300733B97 /* BDPVarianceLightShader.h */,
@@ -205,6 +219,8 @@
 		797258BB1500DE920069E259 /* Shaders */ = {
 			isa = PBXGroup;
 			children = (
+				7997384317CF4D0300650F1E /* BlurShader.fsh */,
+				7997384417CF4D0300650F1E /* BlurShader.vsh */,
 				7971D45217CE669000733B97 /* VarianceLightShader.fsh */,
 				7971D45317CE669000733B97 /* VarianceLightShader.vsh */,
 				7971D45D17CF353400733B97 /* VarianceShadowShader.fsh */,
@@ -267,6 +283,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				79EDBFB617CF4F0700C84659 /* BlurShader.fsh in Resources */,
+				79EDBFB717CF4F0700C84659 /* BlurShader.vsh in Resources */,
 				7971D45F17CF354B00733B97 /* VarianceShadowShader.fsh in Resources */,
 				7971D46017CF354B00733B97 /* VarianceShadowShader.vsh in Resources */,
 				7971D45617CE6F6F00733B97 /* VarianceLightShader.fsh in Resources */,
@@ -290,10 +308,12 @@
 				797258A11500DE4F0069E259 /* main.m in Sources */,
 				7971D45A17CE729300733B97 /* BDPVarianceLightShader.m in Sources */,
 				7971D46317CF35B200733B97 /* BDPVarianceShadowShader.m in Sources */,
+				7997384917CF4D4100650F1E /* GLBlurFilter.m in Sources */,
 				797258A51500DE4F0069E259 /* BDPAppDelegate.m in Sources */,
 				7971D46617CF401100733B97 /* GLFBO.m in Sources */,
 				797258BE1500DF6A0069E259 /* GLViewObject.m in Sources */,
 				797258C11500DF7F0069E259 /* BDPCubeView.m in Sources */,
+				7997384217CF4CC200650F1E /* GLBlurShader.m in Sources */,
 				797258CE1500DFEB0069E259 /* GLShader.m in Sources */,
 				797258D11500E0FA0069E259 /* BDPShadowShader.m in Sources */,
 				797258D41500E6610069E259 /* BDPViewController.m in Sources */,

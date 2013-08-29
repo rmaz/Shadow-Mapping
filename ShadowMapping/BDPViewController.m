@@ -27,6 +27,7 @@
 #import "BDPVarianceShadowShader.h"
 #import "BDPShadowBuffer.h"
 #import "BDPVarianceShadowBuffer.h"
+#import "GLBlurFilter.h"
 
 @interface BDPViewController()
 {
@@ -39,6 +40,7 @@
     BDPVarianceLightShader *_varianceLightShader;
     BDPShadowShader *_shadowShader;
     BDPVarianceShadowShader *_varianceShadowShader;
+    GLBlurFilter *_blurFilter;
     float _rotation;
     GLKMatrix4 _biasMatrix;
     BOOL _useVarianceShadows;
@@ -116,6 +118,7 @@ static const GLKVector3 kLightLookAt = { 0.0, 0.0, -15.0 };
     _varianceLightShader = [[BDPVarianceLightShader alloc] init];
     _shadowShader = [[BDPShadowShader alloc] init];
     _varianceShadowShader = [[BDPVarianceShadowShader alloc] init];
+    _blurFilter = [[GLBlurFilter alloc] initWithSize:_varianceShadowBuffer.bufferSize];
 
     GLKVector3 lightDirection = GLKVector3Normalize(GLKVector3Subtract(kLightLookAt, kLightPosition));
     _cubeView = [[BDPCubeView alloc] init];
@@ -218,15 +221,14 @@ static const GLKVector3 kLightLookAt = { 0.0, 0.0, -15.0 };
     // pick the correct framebuffer to use
     GLFBO *shadowFBO = _useVarianceShadows ? _varianceShadowBuffer : _shadowBuffer;
     CGSize fboSize = shadowFBO.bufferSize;
+    if (_useVarianceShadows)
+        glDisable(GL_DEPTH_TEST);
 
     // first we render to the shadow FBO from the lights perspective
     glBindFramebuffer(GL_FRAMEBUFFER, shadowFBO.bufferID);
     glViewport(0, 0, fboSize.width, fboSize.height);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    
-    // disable colour rendering for now
-    //glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
-    
+
     // create the projection matrix from the cameras view
     GLKMatrix4 cameraViewMatrix = GLKMatrix4MakeLookAt(kLightPosition.x, kLightPosition.y, kLightPosition.z, kLightLookAt.x, kLightLookAt.y, kLightLookAt.z, 0, 1, 0);
     float shadowAspect = fboSize.width / fboSize.height;
@@ -238,14 +240,17 @@ static const GLKVector3 kLightLookAt = { 0.0, 0.0, -15.0 };
     
     // we only draw the shadow casting objects as fast as possible
     [_cubeView renderWithLightMatrix:shadowMatrix];
+
+    // if we are using variance shadow maps, blur the textures now
+    if (_useVarianceShadows) {
+        [_blurFilter blurTexture:_varianceShadowBuffer.bufferID];
+    }
     
     // switch back to the main render buffer
     // this will also restore the viewport
     [view bindDrawable];
-    
-    // reenable colour rendering
-    //glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glEnable(GL_DEPTH_TEST);
     
     // render only front faces
     glCullFace(GL_BACK);
