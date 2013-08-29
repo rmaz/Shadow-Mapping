@@ -83,7 +83,7 @@ static const GLKVector3 kLightLookAt = { 0.0, 0.0, -15.0 };
     [self setupGL];
 
     // use a segmented control to switch the shadow map modes
-    UISegmentedControl *segmentControl = [[UISegmentedControl alloc] initWithItems:@[ @"Shadow Map", @"Variance Shadow Map"]];
+    UISegmentedControl *segmentControl = [[UISegmentedControl alloc] initWithItems:@[ @"Shadow Map", @"Variance Map"]];
     segmentControl.selectedSegmentIndex = 0;
     [segmentControl addTarget:self action:@selector(segmentControlChanged:) forControlEvents:UIControlEventValueChanged];
     CGRect frame;
